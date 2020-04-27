@@ -1,2 +1,2 @@
-# bot-saude
+# serenata-emails
 

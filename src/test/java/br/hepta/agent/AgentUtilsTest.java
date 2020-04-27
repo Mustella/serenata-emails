@@ -9,8 +9,8 @@ import io.quarkus.test.junit.QuarkusTest;
 public class AgentUtilsTest {
 	
 	@Test
-	public void isInputHelloTest() {
-		EmailReader.lerEmail();
-		System.out.println("Hello");
+	public void isInputHelloTest() throws Exception {
+		System.out.println(System.getProperty("user.dir"));
+		EmailReader.lerPlanilha();
 	}
 }
