@@ -38,6 +38,11 @@ public class EmailReader {
 		listaFinal = lePlanilha(listaFinal, "Inscrições SN 2018 (respostas).xlsx", 0, 1, 4);
 		listaFinal = lePlanilha(listaFinal, "Inscrições SN 2017 (respostas) (1).xlsx", 0, 1, 4);
 		listaFinal = lePlanilha(listaFinal, "Inscrições SN 2018 (respostas)(1).xlsx", 0, 1, 4);
+		
+		listaFinal.sort((o1, o2) -> o1.getNome().compareTo(o2.getNome()));
+		for (Pessoa pessoa : listaFinal) {
+			System.out.println(pessoa);
+		}
 
 	}
 
@@ -61,7 +66,7 @@ public class EmailReader {
 				continue; // Skip headers e emails vazios
 			}
 			if (!rowIsEmpty(row)) {
-				String nomeString = row.getCell(nome) == null ? "" : row.getCell(nome).getStringCellValue().trim();
+				String nomeString = row.getCell(nome) == null ? "" : StringUtils.stripAccents(row.getCell(nome).getStringCellValue().trim());
 
 				List<String> emailParts = Arrays.asList(emailString.split("@"));
 				String dominio = emailParts.get(emailParts.size() - 1); // Dominio do email
