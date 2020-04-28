@@ -56,12 +56,12 @@ public class EmailReader {
 			int email) {
 
 		for (Row row : mySheet) { // For each Row.
-			if (row.getRowNum() == 0) {
-				continue; // just skip the rows if row number is 0 or 1
+			String emailString = row.getCell(email).getStringCellValue().trim().toLowerCase().replace(" ", "");
+			if (row.getRowNum() == 0 || emailString.length() < 5) {
+				continue; // Skip header e emails vazios
 			}
 			if (!rowIsEmpty(row)) {
 				String nomeString = row.getCell(nome) == null ? "" : row.getCell(nome).getStringCellValue().trim();
-				String emailString = row.getCell(email).getStringCellValue().trim().toLowerCase().replace(" ", "");
 
 				List<String> emailParts = Arrays.asList(emailString.split("@"));
 				String dominio = emailParts.get(emailParts.size() - 1); // Dominio do email
