@@ -7,3 +7,4 @@
 output.txt
 ui/.vscode/settings.json
 .env*
+*.xlsx
