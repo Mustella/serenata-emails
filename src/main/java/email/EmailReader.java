@@ -20,10 +20,12 @@ public class EmailReader {
 
 	static String PLANILHAS_DIR = System.getProperty("user.dir") + "/src/main/resources/";
 	static ArrayList<String> DOMINIOS = new ArrayList<String>(Arrays.asList("gmail.com", "gmail.com.br", "hotmail.com",
-			"hotmail.com.br", "yahoo.com.br", "yahoo.com", "agricultura.gov.br", "terra.com.br", "aneel.gov.br",
-			"globomail.com", "uol.com.br", "globo.com", "bol.com.br", "msn.com", "outlook.com", "gmx.fr",
-			"correios.com.br", "brb.com.br", "ig.com.br", "cidadania.gov.br", "ifb.edu.br", "serpro.gov.br",
-			"ana.gov.br", "icloud.com", "bce.unb.br", "unb.br"));
+			"live.com", "hotmail.com.br", "yahoo.com.br", "yahoo.com", "agricultura.gov.br", "terra.com.br",
+			"bancorbras.com.br", "aneel.gov.br", "globomail.com", "uol.com.br", "globo.com", "bol.com.br", "msn.com",
+			"outlook.com", "gmx.fr", "correios.com.br", "brb.com.br", "ig.com.br", "cidadania.gov.br", "ifb.edu.br",
+			"serpro.gov.br", "ana.gov.br", "icloud.com", "bce.unb.br", "unb.br", "bsbmusical.com.br", "caixa.gov.br",
+			"cebraspe.org.br", "outlook.com.br", "focoemperformance.com.br", "agu.gov.br", "inoveturismo.tur.br",
+			"portalcci.com.br", "mattos.eng.br"));
 
 	public static void lerPlanilha() throws Exception {
 
@@ -54,17 +56,17 @@ public class EmailReader {
 			int email) {
 
 		for (Row row : mySheet) { // For each Row.
+			if (row.getRowNum() == 0) {
+				continue; // just skip the rows if row number is 0 or 1
+			}
 			if (!rowIsEmpty(row)) {
-				String nomeString = row.getCell(nome) == null ? "" : row.getCell(nome).getStringCellValue().trim(); // Segunda
-				// coluna
-				String emailString = row.getCell(email) == null ? ""
-						: row.getCell(email).getStringCellValue().trim().toLowerCase().replace(" ", ""); // Quarta
-				// coluna
+				String nomeString = row.getCell(nome) == null ? "" : row.getCell(nome).getStringCellValue().trim();
+				String emailString = row.getCell(email).getStringCellValue().trim().toLowerCase().replace(" ", "");
 
 				List<String> emailParts = Arrays.asList(emailString.split("@"));
 				String dominio = emailParts.get(emailParts.size() - 1); // Dominio do email
 
-				if (!DOMINIOS.contains(dominio)) {
+				if (!DOMINIOS.contains(dominio) || emailParts.size() > 2) {
 					System.out.println(emailString + " possui dominio desconhecido");
 				}
 
