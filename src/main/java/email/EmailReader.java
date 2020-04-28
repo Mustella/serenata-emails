@@ -57,8 +57,8 @@ public class EmailReader {
 
 		for (Row row : mySheet) { // For each Row.
 			String emailString = row.getCell(email).getStringCellValue().trim().toLowerCase().replace(" ", "");
-			if (row.getRowNum() == 0 || emailString.length() < 5) {
-				continue; // Skip header e emails vazios
+			if (row.getRowNum() == 0 || emailString.length() < 5 || emailString.equals("nãopossui@")) {
+				continue; // Skip headers e emails vazios
 			}
 			if (!rowIsEmpty(row)) {
 				String nomeString = row.getCell(nome) == null ? "" : row.getCell(nome).getStringCellValue().trim();
@@ -67,19 +67,17 @@ public class EmailReader {
 				String dominio = emailParts.get(emailParts.size() - 1); // Dominio do email
 
 				if (!DOMINIOS.contains(dominio) || emailParts.size() > 2) {
-					System.out.println(emailString + " possui dominio desconhecido");
+					System.out.println(emailString); // Dominio desconhecido ou emails concatenados
 				}
 
 				Pessoa pessoaCursor = new Pessoa(WordUtils.capitalizeFully(nomeString), emailString, origem);
 
 				if (!listaFinal.contains(pessoaCursor)) {
-//					System.out.println(pessoaCursor + " cadastrada");
 					listaFinal.add(pessoaCursor);
 				} else {
 //					System.out.println(pessoaCursor + " já esta cadastrada");
 				}
 			} else {
-//				System.out.println("Linha vazia");
 				break; // Fim da planilha, encerra loop
 			}
 		}
