@@ -1,4 +1,4 @@
-package br.hepta.agent;
+package br.email.run;
 
 import org.junit.jupiter.api.Test;
 
@@ -6,11 +6,11 @@ import email.EmailReader;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-public class AgentUtilsTest {
+public class EmailReaderRunner {
 	
 	@Test
-	public void isInputHelloTest() throws Exception {
+	public void executarLeitura() throws Exception {
 		System.out.println(System.getProperty("user.dir"));
-		EmailReader.lerPlanilha();
+		EmailReader.lerPlanilhas();
 	}
 }
